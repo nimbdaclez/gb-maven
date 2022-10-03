@@ -9,7 +9,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.concurrent.TimeUnit;
 
-public class HwTest04 {
+public class DeleteFromCartTest {
     public static void main(String[] args) {
 
         /* Проверка удаления товара из корзины */

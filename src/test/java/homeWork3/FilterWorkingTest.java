@@ -6,14 +6,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
-public class HwTest03 {
+public class FilterWorkingTest {
     public static void main(String[] args) {
 
-        /* Проверка добавления товара в корзину */
+        /* Проверка функциональности фильтра */
 
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
@@ -24,25 +23,19 @@ public class HwTest03 {
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         driver.get("https://dverka.moscow");
 
-        WebElement webElement = driver.findElement(By.xpath(".//div[2]/div/input[@name='q']"));
-        webElement.sendKeys("5712302547");
-        webElement.submit();
+        WebElement webElement = driver.findElement(By.xpath(".//*[text()='Межкомнатные двери']"));
+        webElement.click();
 
-        WebElement webElement2 = driver.findElement(By.xpath(".//*[text()='LABIRINT Входная металлическая дверь PIANO 3 орех премиум']"));
+        WebElement webElement2 = driver.findElement(By.xpath(".//*[text()='el`PORTA г. Рязань']"));
         webElement2.click();
 
-        WebElement webElement3 = driver.findElement(By.xpath(".//div[@data-id='114578']"));
-        webElement3.click();
-
-        try { /* задержка для загрузки модального окна */
+        try { /* неявная задержка для прогрузки фильтра */
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        WebElement webElement4 = driver.findElement(By.cssSelector("a.uk-modal-close.modal-transparent"));
+        WebElement webElement4 = driver.findElement(By.xpath("//input[@id='set_filter']"));
         webElement4.click();
-
 
     }
 }
