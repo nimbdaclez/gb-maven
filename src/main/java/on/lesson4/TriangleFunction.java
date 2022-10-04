@@ -1,10 +1,10 @@
+package on.lesson4;
+
 public class TriangleFunction {
     public static void main(String[] args) {
 
-    functionOfGeron(3,7,6);
-
     }
-    public static void functionOfGeron (int a, int b, int c) {
+    public TriangleFunction(int a, int b, int c) {
         int p = 0;
         double s;
         p = (a + b + c) / 2;
