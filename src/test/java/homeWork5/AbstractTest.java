@@ -1,10 +1,7 @@
 package homeWork5;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -26,13 +23,13 @@ public class AbstractTest {
 
     @BeforeEach
     void goTo(){
-        Assertions.assertDoesNotThrow( ()-> driver.navigate().to("https://dverka.moscow"),"Страница не доступна");
-
+        Assertions.assertDoesNotThrow( ()-> driver.navigate().to("https://dverka.moscow"),
+                "Страница не доступна");
     }
 
     @AfterAll
     static void close(){
-//        driver.quit();
+        driver.quit();
     }
 
     public static WebDriver getDriver(){

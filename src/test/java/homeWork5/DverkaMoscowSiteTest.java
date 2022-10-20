@@ -1,86 +1,123 @@
 package homeWork5;
 
-
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
+
 
 public class DverkaMoscowSiteTest extends AbstractTest {
 
     static WebDriver driver;
 
-    //    @Test
-//    @DisplayName("Добавление товара в корзину")
-//    public void addToCart(){
-//        new WebDriverWait(getDriver(), Duration.ofSeconds(15)).until(ExpectedConditions.urlContains("https://dverka.moscow"));
-//        Assertions.assertTrue(getDriver().getTitle().contains("Интернет-магазин дверей | Продажа межкомнатных и входных дверей с доставкой по Москве и регионам России | Цены в каталоге ООО «ТРИЭР»"),"Страница входа недоступна");
-//
-//        Actions cartAdd = new Actions(getDriver());
-//        cartAdd.sendKeys(getDriver().findElement(By.xpath(".//div[2]/div/input[@name='q']")),"5712302547")
-//                .pause(1000L)
-//                .click(getDriver().findElement(By.xpath(".//*[text()='LABIRINT Входная металлическая дверь PIANO 3 орех премиум']")))
-//                .pause(1000l)
-//                .click(getDriver().findElement(By.xpath(".//div[@data-id='114578']")))
-//                .pause(1000l)
-//                .click(getDriver().findElement(By.cssSelector("a.uk-modal-close.modal-transparent")))
-//                .build()
-//                .perform();
-//    }
-//    @Test
-//    @DisplayName("Добавление товара в корзину")
-//    public void deleteFromCartTest(){
-//        WebElement webElement = driver.findElement(By.xpath(".//div[2]/div/input[@name='q']"));
-//        webElement.sendKeys("5712302547");
-//        webElement.submit();
-//
-//        WebElement webElement2 = driver.findElement(By.xpath(".//*[text()='LABIRINT Входная металлическая дверь PIANO 3 орех премиум']"));
-//        webElement2.click();
-//
-//        WebElement webElement3 = driver.findElement(By.xpath(".//div[@data-id='114578']"));
-//        webElement3.click();
-//
-//        driver.get("https://dverka.moscow");
-//
-//        WebElement webElement4 = driver.findElement(By.xpath(".//div[@class='basket-inner-counter']"));
-//        webElement4.click();
-//
-//        WebElement webElement5 = driver.findElement(By.xpath(".//a[@id='basket-remove-all']"));
-//        webElement5.click();
-//    }
-//
     @Test
-    @DisplayName("Добавление товара в корзину")
-    public void FilterWorking() {
-//        new WebDriverWait(getDriver(), Duration.ofSeconds(15)).until(ExpectedConditions.urlContains("https://dverka.moscow"));
-//        Assertions.assertTrue(getDriver().getTitle().contains("Интернет-магазин дверей | Продажа межкомнатных и входных дверей с доставкой по Москве и регионам России | Цены в каталоге ООО «ТРИЭР»"), "Страница входа недоступна");
+    @DisplayName("Проверка переключения опций")
+    void ActionTest01 () throws InterruptedException {
+        new WebDriverWait(getDriver(), Duration.ofSeconds(10)).until(ExpectedConditions.urlContains("https://dverka.moscow"));
+        Assertions.assertTrue(getDriver().getTitle().contains("Интернет-магазин дверей | Продажа межкомнатных и входных дверей с доставкой по Москве и регионам России | Цены в каталоге ООО «ТРИЭР»"),"Не главная страница");
 
-        Actions filterWorking = new Actions(getDriver());
-        filterWorking.click(getDriver().findElement(By.xpath(".//*[text()='Межкомнатные двери']")))
-                .pause(1000L)
-                .click(getDriver().findElement(By.xpath(".//*[text()='el`PORTA г. Рязань']")))
-                .pause(2000L)
-                .click(getDriver().findElement(By.xpath("//input[@id='set_filter']")))
+        getDriver().get("https://dverka.moscow/catalog/vkhodnye-dveri/optim-dekor/vkhodnaya-dver-stroygost-5-1-antik-med/");
+
+        Actions changeOptions = new Actions(getDriver());
+        changeOptions.click(getDriver().findElement(By.xpath(".//div[@data-id='22']")))
+                .pause(1000l)
+                .click(getDriver().findElement(By.xpath(".//div[@data-id='21']")))
+                .pause(1000l)
+                .click(getDriver().findElement(By.xpath(".//div[@data-id='2']")))
+                .pause(1000l)
+                .click(getDriver().findElement(By.xpath(".//div[@data-id='1']")))
                 .build()
                 .perform();
 
-//    @Test
-//    @DisplayName("Добавление товара в корзину")
-//
-//    public void SiteAuthorization(){
-//        WebElement webElement = driver.findElement(By.xpath(".//*[text()='Войти']"));
-//        webElement.click();
-//        WebElement webElement2 = driver.findElement(By.xpath(".//input[@name='USER_LOGIN']"));
-//        webElement2.sendKeys("kingarthur");
-//        WebElement webElement3 = driver.findElement(By.xpath(".//input[@name='USER_PASSWORD']"));
-//        webElement3.sendKeys("12345678");
-//        WebElement webElement4 = driver.findElement(By.xpath("//input[@class='btn btn-primary']"));
-//        webElement4.click();
-//    }
-
-
     }
+
+    @Test
+    @DisplayName("Добавление товара в корзину")
+    public void addToCart(){
+        WebElement webElement = getDriver().findElement(By.xpath(".//div[2]/div/input[@name='q']"));
+        webElement.sendKeys("5712302547");
+        webElement.submit();
+
+        Assertions.assertTrue(getDriver().getTitle().contains("Поиск по каталогу | Dverka Moscow"),"Не та страница");
+
+        WebElement webElement2 = getDriver().findElement(By.xpath(".//*[text()='LABIRINT Входная металлическая дверь PIANO 3 орех премиум']"));
+        webElement2.click();
+
+        WebElement webElement3 = getDriver().findElement(By.xpath(".//div[@data-id='114578']"));
+        webElement3.click();
+
+        try { /* задержка для загрузки модального окна */
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        WebElement webElement4 = getDriver().findElement(By.cssSelector("a.uk-modal-close.modal-transparent"));
+        webElement4.click();
+    }
+    @Test
+    @DisplayName("Удаление товара из корзины")
+    public void deleteFromCartTest(){
+        WebElement webElement = getDriver().findElement(By.xpath(".//div[2]/div/input[@name='q']"));
+        webElement.sendKeys("5712302547");
+        webElement.submit();
+
+        WebElement webElement2 = getDriver().findElement(By.xpath(".//*[text()='LABIRINT Входная металлическая дверь PIANO 3 орех премиум']"));
+        webElement2.click();
+
+        WebElement webElement3 = getDriver().findElement(By.xpath(".//div[@data-id='114578']"));
+        webElement3.click();
+
+        getDriver().get("https://dverka.moscow");
+
+        WebElement webElement4 = getDriver().findElement(By.xpath(".//div[@class='basket-inner-counter']"));
+        webElement4.click();
+
+        WebElement webElement5 = getDriver().findElement(By.xpath(".//a[@id='basket-remove-all']"));
+        webElement5.click();
+        try { /* неявная задержка для прогрузки фильтра */
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+//        Assertions.assertTrue(getDriver().equals(By.xpath(".//div[2]/p/font[@class='errortext']")),"sdsd");
+    }
+
+    @Test
+    @DisplayName("Проверка фильтра")
+    public void FilterWorking() {
+        WebElement webElement = getDriver().findElement(By.xpath(".//*[text()='Межкомнатные двери']"));
+        webElement.click();
+
+        WebElement webElement2 = getDriver().findElement(By.xpath(".//*[text()='el`PORTA г. Рязань']"));
+        webElement2.click();
+
+        try { /* неявная задержка для прогрузки фильтра */
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        WebElement webElement4 = getDriver().findElement(By.xpath("//input[@id='set_filter']"));
+        webElement4.click();
+    }
+
+    @Test
+    @DisplayName("Проверка авторизации")
+
+    public void SiteAuthorization(){
+        WebElement webElement = getDriver().findElement(By.xpath(".//*[text()='Войти']"));
+        webElement.click();
+        WebElement webElement2 = getDriver().findElement(By.xpath(".//input[@name='USER_LOGIN']"));
+        webElement2.sendKeys("kingarthur");
+        WebElement webElement3 = getDriver().findElement(By.xpath(".//input[@name='USER_PASSWORD']"));
+        webElement3.sendKeys("12345678");
+        WebElement webElement4 = getDriver().findElement(By.xpath("//input[@class='btn btn-primary']"));
+        webElement4.click();
+    }
+
 }
