@@ -9,7 +9,7 @@ public abstract class AbstractPage {
 
     public AbstractPage(WebDriver driver){
         this.driver = driver;
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements(driver,this); // "Ленивый" поиск эллементов
     }
 
     protected WebDriver getDriver() {

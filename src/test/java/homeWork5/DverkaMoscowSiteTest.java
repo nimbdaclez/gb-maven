@@ -13,7 +13,7 @@ import java.time.Duration;
 
 
 
-public class DverkaMoscowSiteTest extends AbstractTest {
+public class DverkaMoscowSiteTest extends AbstractTestOld {
 
     static WebDriver driver;
 
