@@ -1,5 +1,6 @@
 package homeWork5;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -7,8 +8,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import org.junit.jupiter.api.Test;
 import java.time.Duration;
+
 
 
 public class DverkaMoscowSiteTest extends AbstractTest {
@@ -16,35 +18,11 @@ public class DverkaMoscowSiteTest extends AbstractTest {
     static WebDriver driver;
 
     @Test
-    @DisplayName("Проверка переключения опций")
-    void ActionTest01 () throws InterruptedException {
-        new WebDriverWait(getDriver(), Duration.ofSeconds(10)).until(ExpectedConditions.urlContains("https://dverka.moscow"));
-        Assertions.assertTrue(getDriver().getTitle().contains("Интернет-магазин дверей | Продажа межкомнатных и входных дверей с доставкой по Москве и регионам России | Цены в каталоге ООО «ТРИЭР»"),"Не главная страница");
-
-        getDriver().get("https://dverka.moscow/catalog/vkhodnye-dveri/optim-dekor/vkhodnaya-dver-stroygost-5-1-antik-med/");
-
-        Actions changeOptions = new Actions(getDriver());
-        changeOptions.click(getDriver().findElement(By.xpath(".//div[@data-id='22']")))
-                .pause(1000l)
-                .click(getDriver().findElement(By.xpath(".//div[@data-id='21']")))
-                .pause(1000l)
-                .click(getDriver().findElement(By.xpath(".//div[@data-id='2']")))
-                .pause(1000l)
-                .click(getDriver().findElement(By.xpath(".//div[@data-id='1']")))
-                .build()
-                .perform();
-
-    }
-
-    @Test
     @DisplayName("Добавление товара в корзину")
     public void addToCart(){
         WebElement webElement = getDriver().findElement(By.xpath(".//div[2]/div/input[@name='q']"));
         webElement.sendKeys("5712302547");
         webElement.submit();
-
-        Assertions.assertTrue(getDriver().getTitle().contains("Поиск по каталогу | Dverka Moscow"),"Не та страница");
-
         WebElement webElement2 = getDriver().findElement(By.xpath(".//*[text()='LABIRINT Входная металлическая дверь PIANO 3 орех премиум']"));
         webElement2.click();
 
@@ -59,7 +37,10 @@ public class DverkaMoscowSiteTest extends AbstractTest {
 
         WebElement webElement4 = getDriver().findElement(By.cssSelector("a.uk-modal-close.modal-transparent"));
         webElement4.click();
+
+        Assertions.assertTrue(getDriver().findElement(By.cssSelector(".name-product-detail")).getText().equals("LABIRINT Входная металлическая дверь PIANO 3 орех премиум 5712302547"));
     }
+
     @Test
     @DisplayName("Удаление товара из корзины")
     public void deleteFromCartTest(){
@@ -85,7 +66,7 @@ public class DverkaMoscowSiteTest extends AbstractTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-//        Assertions.assertTrue(getDriver().equals(By.xpath(".//div[2]/p/font[@class='errortext']")),"sdsd");
+        Assertions.assertTrue(getDriver().findElement(By.xpath(".//div[2]/p/font[@class='errortext']")).getText().equals("Ваша корзина пуста"));
     }
 
     @Test
@@ -104,6 +85,7 @@ public class DverkaMoscowSiteTest extends AbstractTest {
         }
         WebElement webElement4 = getDriver().findElement(By.xpath("//input[@id='set_filter']"));
         webElement4.click();
+        Assertions.assertTrue(getDriver().findElement(By.cssSelector(".h1")).getText().equals("Межкомнатные двери — Производитель: el`PORTA г. Рязань"));
     }
 
     @Test
@@ -118,6 +100,26 @@ public class DverkaMoscowSiteTest extends AbstractTest {
         webElement3.sendKeys("12345678");
         WebElement webElement4 = getDriver().findElement(By.xpath("//input[@class='btn btn-primary']"));
         webElement4.click();
+        Assertions.assertTrue(getDriver().findElement(By.xpath(".//h1")).getText().equals("Личный кабинет"));
     }
+    @Test
+    @DisplayName("Проверка переключения опций")
+    void ActionTest01 () throws InterruptedException {
+        new WebDriverWait(getDriver(), Duration.ofSeconds(10)).until(ExpectedConditions.urlContains("https://dverka.moscow"));
+        Assertions.assertTrue(getDriver().getTitle().contains("Интернет-магазин дверей | Продажа межкомнатных и входных дверей с доставкой по Москве и регионам России | Цены в каталоге ООО «ТРИЭР»"),"Не главная страница");
 
+        getDriver().get("https://dverka.moscow/catalog/vkhodnye-dveri/optim-dekor/vkhodnaya-dver-stroygost-5-1-antik-med/");
+
+        Actions changeOptions = new Actions(getDriver());
+        changeOptions.click(getDriver().findElement(By.xpath(".//div[@data-id='22']")))
+                .pause(1000l)
+                .click(getDriver().findElement(By.xpath(".//div[@data-id='21']")))
+                .pause(1000l)
+                .click(getDriver().findElement(By.xpath(".//div[@data-id='2']")))
+                .pause(1000l)
+                .click(getDriver().findElement(By.xpath(".//div[@data-id='1']")))
+                .pause(1000L)
+                .build()
+                .perform();
+    }
 }
