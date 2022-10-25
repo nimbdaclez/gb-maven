@@ -19,12 +19,20 @@ public class MainMenu extends AbstractPage {
     @FindBy(xpath = ".//div[@class='basket-inner-counter']")
     private WebElement goToBasket;
 
+    @FindBy(xpath = "//input[@id='set_filter']")
+    private WebElement setFilterButton;
+
+    public MainMenu clickSetFilterButton(){
+        setFilterButton.click();
+        return this;
+    }
     public MainMenu sendDoorId(){
         searchXpath.sendKeys("5712302547");
+        searchXpath.submit();
         return this;
     }
 
-    public MainMenu singIn(){
+    public MainMenu singInButton(){
         singInButton.click();
         return this;
     }

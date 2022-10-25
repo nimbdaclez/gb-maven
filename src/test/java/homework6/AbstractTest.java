@@ -13,7 +13,8 @@ import java.util.concurrent.TimeUnit;
 
 public class AbstractTest {
     private static WebDriver driver;
-
+    public static String h1PageTitle = ".name-product-detail";
+    public static String labirintDoorXpath = ".//*[text()='LABIRINT Входная металлическая дверь PIANO 3 орех премиум']";
     @BeforeAll
     static void init () {
         WebDriverManager.chromedriver().setup();
