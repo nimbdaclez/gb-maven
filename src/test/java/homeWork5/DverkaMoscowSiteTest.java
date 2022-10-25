@@ -17,16 +17,17 @@ public class DverkaMoscowSiteTest extends AbstractTest {
 
     static WebDriver driver;
 
+
     @Test
     @DisplayName("Добавление товара в корзину")
     public void addToCart(){
-        WebElement webElement = getDriver().findElement(By.xpath(".//div[2]/div/input[@name='q']"));
-        webElement.sendKeys("5712302547");
+        WebElement webElement = getDriver().findElement(By.xpath(searchXpath));
+        webElement.sendKeys(doorId);
         webElement.submit();
-        WebElement webElement2 = getDriver().findElement(By.xpath(".//*[text()='LABIRINT Входная металлическая дверь PIANO 3 орех премиум']"));
+        WebElement webElement2 = getDriver().findElement(By.xpath(labirintDoorXpath));
         webElement2.click();
 
-        WebElement webElement3 = getDriver().findElement(By.xpath(".//div[@data-id='114578']"));
+        WebElement webElement3 = getDriver().findElement(By.xpath(addToCartButton));
         webElement3.click();
 
         try { /* задержка для загрузки модального окна */
@@ -38,20 +39,20 @@ public class DverkaMoscowSiteTest extends AbstractTest {
         WebElement webElement4 = getDriver().findElement(By.cssSelector("a.uk-modal-close.modal-transparent"));
         webElement4.click();
 
-        Assertions.assertTrue(getDriver().findElement(By.cssSelector(".name-product-detail")).getText().equals("LABIRINT Входная металлическая дверь PIANO 3 орех премиум 5712302547"));
+        Assertions.assertTrue(getDriver().findElement(By.cssSelector(h1PageTitle)).getText().equals("LABIRINT Входная металлическая дверь PIANO 3 орех премиум 5712302547"));
     }
 
     @Test
     @DisplayName("Удаление товара из корзины")
     public void deleteFromCartTest(){
-        WebElement webElement = getDriver().findElement(By.xpath(".//div[2]/div/input[@name='q']"));
-        webElement.sendKeys("5712302547");
+        WebElement webElement = getDriver().findElement(By.xpath(searchXpath));
+        webElement.sendKeys(doorId);
         webElement.submit();
 
-        WebElement webElement2 = getDriver().findElement(By.xpath(".//*[text()='LABIRINT Входная металлическая дверь PIANO 3 орех премиум']"));
+        WebElement webElement2 = getDriver().findElement(By.xpath(labirintDoorXpath));
         webElement2.click();
 
-        WebElement webElement3 = getDriver().findElement(By.xpath(".//div[@data-id='114578']"));
+        WebElement webElement3 = getDriver().findElement(By.xpath(addToCartButton));
         webElement3.click();
 
         getDriver().get("https://dverka.moscow");
@@ -101,6 +102,19 @@ public class DverkaMoscowSiteTest extends AbstractTest {
         WebElement webElement4 = getDriver().findElement(By.xpath("//input[@class='btn btn-primary']"));
         webElement4.click();
         Assertions.assertTrue(getDriver().findElement(By.xpath(".//h1")).getText().equals("Личный кабинет"));
+    }
+    @Test
+    @DisplayName("Проверка выбора другого цвета двери")
+    public void changeColor(){
+        WebElement webElement = getDriver().findElement(By.xpath(searchXpath));
+        webElement.sendKeys(doorId);
+        webElement.submit();
+        WebElement webElement2 = getDriver().findElement(By.xpath(labirintDoorXpath));
+        webElement2.click();
+        WebElement webElement3 = getDriver().findElement(By.xpath(".//div[2]/div[3]/div[2]/div/a[2]"));
+        webElement3.click();
+        Assertions.assertTrue(getDriver().findElement(By.cssSelector(h1PageTitle)).getText().equals("LABIRINT Входная металлическая дверь PIANO 3 сандал белый 5716975659"));
+
     }
     @Test
     @DisplayName("Проверка переключения опций")
