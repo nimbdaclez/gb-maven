@@ -17,10 +17,10 @@ public class SiteFunctionsTest extends AbstractTest {
     @Test
     @DisplayName("Проверка фильтра")
     public void filterWorking(){
-        MainMenu mainMenu = new MainMenu(getDriver());
+        MainMenu mainMenu = new MainMenu(getWebDriver());
 
         mainMenu.goToCategory();
-        WebElement webElement2 = getDriver().findElement(By.xpath(".//*[text()='el`PORTA г. Рязань']"));
+        WebElement webElement2 = getWebDriver().findElement(By.xpath(".//*[text()='el`PORTA г. Рязань']"));
         webElement2.click();
 
         try { /* неявная задержка для прогрузки фильтра */
@@ -29,35 +29,35 @@ public class SiteFunctionsTest extends AbstractTest {
             e.printStackTrace();
         }
         mainMenu.clickSetFilterButton();
-        Assertions.assertTrue(getDriver().findElement(By.cssSelector(".h1")).getText().equals("Межкомнатные двери — Производитель: el`PORTA г. Рязань"));
+        Assertions.assertTrue(getWebDriver().findElement(By.cssSelector(".h1")).getText().equals("Межкомнатные двери — Производитель: el`PORTA г. Рязань"));
     }
 
 
     @Test
     @DisplayName("Проверка выбора другого цвета двери")
     public void changeColorOption(){
-        MainMenu mainMenu = new MainMenu(getDriver());
+        MainMenu mainMenu = new MainMenu(getWebDriver());
         mainMenu.sendDoorId();
-        WebElement webElement1 = getDriver().findElement(By.xpath(".//*[text()='LABIRINT Входная металлическая дверь PIANO 3 орех премиум']"));
+        WebElement webElement1 = getWebDriver().findElement(By.xpath(".//*[text()='LABIRINT Входная металлическая дверь PIANO 3 орех премиум']"));
         webElement1.click();
-        WebElement webElement3 = getDriver().findElement(By.xpath(".//div[2]/div[3]/div[2]/div/a[2]"));
+        WebElement webElement3 = getWebDriver().findElement(By.xpath(".//div[2]/div[3]/div[2]/div/a[2]"));
         webElement3.click();
-        Assertions.assertTrue(getDriver().findElement(By.cssSelector(h1PageTitle)).getText().equals("LABIRINT Входная металлическая дверь PIANO 3 сандал белый 5716975659"));
+        Assertions.assertTrue(getWebDriver().findElement(By.cssSelector(h1PageTitle)).getText().equals("LABIRINT Входная металлическая дверь PIANO 3 сандал белый 5716975659"));
     }
 
     @Test
     @DisplayName("Проверка переключения опций")
     void changeProductOptions () {
-        getDriver().get("https://dverka.moscow/catalog/vkhodnye-dveri/optim-dekor/vkhodnaya-dver-stroygost-5-1-antik-med/");
+        getWebDriver().get("https://dverka.moscow/catalog/vkhodnye-dveri/optim-dekor/vkhodnaya-dver-stroygost-5-1-antik-med/");
 
-        Actions changeOptions = new Actions(getDriver());
-        changeOptions.click(getDriver().findElement(By.xpath(".//div[@data-id='22']")))
+        Actions changeOptions = new Actions(getWebDriver());
+        changeOptions.click(getWebDriver().findElement(By.xpath(".//div[@data-id='22']")))
                 .pause(1000l)
-                .click(getDriver().findElement(By.xpath(".//div[@data-id='21']")))
+                .click(getWebDriver().findElement(By.xpath(".//div[@data-id='21']")))
                 .pause(1000l)
-                .click(getDriver().findElement(By.xpath(".//div[@data-id='2']")))
+                .click(getWebDriver().findElement(By.xpath(".//div[@data-id='2']")))
                 .pause(1000l)
-                .click(getDriver().findElement(By.xpath(".//div[@data-id='1']")))
+                .click(getWebDriver().findElement(By.xpath(".//div[@data-id='1']")))
                 .pause(1000L)
                 .build()
                 .perform();

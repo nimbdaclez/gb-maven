@@ -152,7 +152,7 @@
           <version> ${allure-maven.version} </version>
           <configuration>
 
-            <buildDirectory>C:\Projects\web_test</buildDirectory>
+            <buildDirectory>D:\Users\ismagilov.m\IdeaProjects\gb-maven</buildDirectory>
           </configuration>
         </plugin>
 
